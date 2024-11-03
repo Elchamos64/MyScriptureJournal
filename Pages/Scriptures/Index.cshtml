@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Journal Entries</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -16,10 +16,19 @@
         <select asp-for="ScriptureBook" asp-items="Model.Book">
             <option value="">All</option>
         </select>
-        <label>Note: <input type="text" asp-for="SearchString" /></label>
+        <label>Note: <input type="text" asp-for="SearchString" placeholder="Find your note" /></label>
         <input type="submit" value="Filter" />
     </p>
 </form>
+<th>
+    <a asp-page="./Index" asp-route-sortOrder="date_asc">Date Added &#9650;</a> |
+    <a asp-page="./Index" asp-route-sortOrder="date_desc">Date Added &#9660;</a>
+</th>
+<th>
+    <a asp-page="./Index" asp-route-sortOrder="book_asc">Book &#9650;</a> |
+    <a asp-page="./Index" asp-route-sortOrder="book_desc">Book &#9660;</a>
+</th>
+
 <table class="table">
     <thead>
         <tr>

@@ -28,9 +28,9 @@
                 <input asp-for="Scripture.Verse" class="form-control" />
                 <span asp-validation-for="Scripture.Verse" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-note">
                 <label asp-for="Scripture.Note" class="control-label"></label>
-                <input asp-for="Scripture.Note" class="form-control" />
+                <textarea asp-for="Scripture.Note" rows="1" style="resize: none; width: 100%;"></textarea>
                 <span asp-validation-for="Scripture.Note" class="text-danger"></span>
             </div>
             <div class="form-group">

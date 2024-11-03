@@ -30,7 +30,7 @@ namespace MyScriptureJournal.Models
                         Note = "12 And also that ye might know of the coming of Jesus Christ" +
                         ", the Son of God, the Father of heaven and of earth, the Creator of " +
                         "all things from the beginning; and that ye might know of the signs of " +
-                        "his coming, to the intent that ye might believe on his name.\r\n\r\n13 And if" +
+                        "his coming, to the intent that ye might believe on his name.\n\n13 And if" +
                         " ye believe on his name ye will repent of all your sins, that thereby ye may " +
                         "have a remission of them through his merits."
                     },

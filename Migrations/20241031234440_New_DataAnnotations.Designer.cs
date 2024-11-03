@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyScriptureJournal.Data;
 
@@ -11,9 +12,11 @@ using MyScriptureJournal.Data;
 namespace MyScriptureJournal.Migrations
 {
     [DbContext(typeof(MyScriptureJournalContext))]
-    partial class MyScriptureJournalContextModelSnapshot : ModelSnapshot
+    [Migration("20241031234440_New_DataAnnotations")]
+    partial class New_DataAnnotations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

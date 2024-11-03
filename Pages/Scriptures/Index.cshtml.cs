@@ -13,28 +13,33 @@ namespace MyScriptureJournal.Pages.Scriptures
 {
     public class IndexModel : PageModel
     {
-        private readonly MyScriptureJournal.Data.MyScriptureJournalContext _context;
+        private readonly MyScriptureJournalContext _context;
 
-        public IndexModel(MyScriptureJournal.Data.MyScriptureJournalContext context)
+        public IndexModel(MyScriptureJournalContext context)
         {
             _context = context;
         }
 
-        public IList<Scripture> Scripture { get;set; } = default!;
+        public IList<Scripture> Scripture { get; set; } = default!;
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
         public SelectList Book { get; set; }
         [BindProperty(SupportsGet = true)]
         public string ScriptureBook { get; set; }
 
+        // Add the sort order parameter to support sorting
+        [BindProperty(SupportsGet = true)]
+        public string SortOrder { get; set; }
+
         public async Task OnGetAsync()
         {
             IQueryable<string> bookQuery = from m in _context.Scripture
-                                            orderby m.Book
-                                            select m.Book;
+                                           orderby m.Book
+                                           select m.Book;
 
             var scriptures = from m in _context.Scripture
-                         select m;
+                             select m;
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 scriptures = scriptures.Where(s => s.Note.Contains(SearchString));
@@ -45,8 +50,18 @@ namespace MyScriptureJournal.Pages.Scriptures
                 scriptures = scriptures.Where(x => x.Book.Contains(ScriptureBook));
             }
 
+            // Apply sorting based on SortOrder
+            scriptures = SortOrder switch
+            {
+                "book_asc" => scriptures.OrderBy(s => s.Book),
+                "book_desc" => scriptures.OrderByDescending(s => s.Book),
+                "date_asc" => scriptures.OrderBy(s => s.DateAdded),
+                "date_desc" => scriptures.OrderByDescending(s => s.DateAdded),
+                _ => scriptures.OrderBy(s => s.Book), // Default sort by Book
+            };
+
             Book = new SelectList(await bookQuery.Distinct().ToListAsync());
-            Scripture = await scriptures.ToListAsync();
+            Scripture = await scriptures.AsNoTracking().ToListAsync();
         }
     }
 }
