@@ -50,14 +50,13 @@ namespace MyScriptureJournal.Pages.Scriptures
                 scriptures = scriptures.Where(x => x.Book.Contains(ScriptureBook));
             }
 
-            // Apply sorting based on SortOrder
             scriptures = SortOrder switch
             {
                 "book_asc" => scriptures.OrderBy(s => s.Book),
                 "book_desc" => scriptures.OrderByDescending(s => s.Book),
                 "date_asc" => scriptures.OrderBy(s => s.DateAdded),
                 "date_desc" => scriptures.OrderByDescending(s => s.DateAdded),
-                _ => scriptures.OrderBy(s => s.Book), // Default sort by Book
+                _ => scriptures.OrderBy(s => s.Book), 
             };
 
             Book = new SelectList(await bookQuery.Distinct().ToListAsync());
